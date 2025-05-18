@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Enum as SQLEnum
+from sqlalchemy import Enum as SQLAlchemyEnum
+from sqlalchemy import desc
+from enum import Enum
 
 app = Flask(__name__)
 
@@ -14,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-class ArtifactType(SQLEnum):
+class ArtifactType(Enum):
     Video = 0
     Photo = 1
     Sound = 2
@@ -30,7 +32,7 @@ class Artifact(db.Model):
     description = db.Column(db.Text, nullable=True)
     emoji = db.Column(db.String(255), nullable=True)
     author = db.Column(db.String(255), nullable=False)
-    artyfactType = db.Column(SQLEnum(ArtifactType), nullable=False)
+    artyfactType = db.Column(SQLAlchemyEnum(ArtifactType), nullable=False)
     filepath = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
