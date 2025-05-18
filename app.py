@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-app.config['UPLOAD_FOLDER'] = "/public_html/medias/"
+app.config['UPLOAD_FOLDER'] = '/home/qwerteam/public_html/medias'
 
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav', 'txt', 'pdf'}
 
@@ -84,6 +84,7 @@ class Artifact(db.Model):
     __tablename__ = 'artifacts'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     votecount = db.Column(db.Integer, default=0, nullable=False)
+    
     author = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
