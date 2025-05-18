@@ -305,6 +305,11 @@ def download_artifact(artifact_id):
 
     return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(artifact.filepath), as_attachment=True)
 
+@app.route('/artifacts/randoms/<string:author>', methods=['GET'])
+def get_random_artifact_by_author(author):
+    artifacts = Artifact.query.filter(Artifact.author == author).order_by(db.func.random()).limit(4).all()
+    return jsonify([artifact.to_dict() for artifact in artifacts])
+
 if __name__ == '__main__':
     with app.app_context():
         init_db()
