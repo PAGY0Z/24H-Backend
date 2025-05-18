@@ -119,11 +119,11 @@ def init_db():
     except Exception as e:
         print(f"An error occurred during database initialization: {e}")
 
-@app.route('/api')
+@app.route('/')
 def index():
     return "Flask app connected to MySQL using SQLAlchemy. Artifact model defined."
 
-@app.route('/api/artifacts', methods=['POST'])
+@app.route('/artifacts', methods=['POST'])
 def create_artifact():
     title = request.form.get('title')
     author = request.form.get('author')
