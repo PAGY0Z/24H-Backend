@@ -63,12 +63,12 @@ def init_db():
     except Exception as e:
         print(f"An error occurred during database initialization: {e}")
 
-@app.route('/')
+@app.route('/api')
 def index():
     return "Flask app connected to MySQL using SQLAlchemy. Artifact model defined."
 
 # Route to Create an artifact
-@app.route('/artifacts', methods=['POST'])
+@app.route('/api/artifacts', methods=['POST'])
 def create_artifact():
     data = request.get_json()
     if not data or not 'title' in data or not 'author' in data or not 'artyfactType' in data:
@@ -99,13 +99,13 @@ def create_artifact():
         abort(500, description=f"Error creating artifact: {e}")
 
 # Route to Get all artifacts
-@app.route('/artifacts', methods=['GET'])
+@app.route('/api/artifacts', methods=['GET'])
 def get_all_artifacts():
     artifacts = Artifact.query.all()
     return jsonify([artifact.to_dict() for artifact in artifacts])
 
 # Route to Get an artifact by its ID
-@app.route('/artifacts/<int:artifact_id>', methods=['GET'])
+@app.route('/api/artifacts/<int:artifact_id>', methods=['GET'])
 def get_artifact(artifact_id):
     artifact = Artifact.query.get(artifact_id)
     if artifact is None:
@@ -113,7 +113,7 @@ def get_artifact(artifact_id):
     return jsonify(artifact.to_dict())
 
 # Route to Update an artifact by its ID
-@app.route('/artifacts/<int:artifact_id>', methods=['PUT'])
+@app.route('/api/artifacts/<int:artifact_id>', methods=['PUT'])
 def update_artifact(artifact_id):
     artifact = Artifact.query.get(artifact_id)
     if artifact is None:
@@ -148,7 +148,7 @@ def update_artifact(artifact_id):
         abort(500, description=f"Error updating artifact: {e}")
 
 # Route to Delete an artifact by its ID
-@app.route('/artifacts/<int:artifact_id>', methods=['DELETE'])
+@app.route('/api/artifacts/<int:artifact_id>', methods=['DELETE'])
 def delete_artifact(artifact_id):
     artifact = Artifact.query.get(artifact_id)
     if artifact is None:
@@ -163,7 +163,7 @@ def delete_artifact(artifact_id):
         abort(500, description=f"Error deleting artifact: {e}")
 
 # Route to vote for an artifact by its ID
-@app.route('/artifacts/<int:artifact_id>/vote', methods=['POST'])
+@app.route('/api/artifacts/<int:artifact_id>/vote', methods=['POST'])
 def vote_artifact(artifact_id):
     artifact = Artifact.query.get(artifact_id)
     if artifact is None:
@@ -180,7 +180,7 @@ def vote_artifact(artifact_id):
         abort(500, description=f"Error voting for artifact: {e}")
 
 # Route to retrieve the leaderboard by page
-@app.route('/leaderboard', methods=['GET'])
+@app.route('/api/leaderboard', methods=['GET'])
 def get_leaderboard():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int) # Number of items per page
