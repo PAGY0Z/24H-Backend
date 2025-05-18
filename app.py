@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-app.config['UPLOAD_FOLDER'] = '/home/qwerteam/public_html/medias'
+app.config['UPLOAD_FOLDER'] = '/home/24H-Backend/uploads/'
 
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav', 'txt', 'pdf'}
 
