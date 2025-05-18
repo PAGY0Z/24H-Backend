@@ -119,6 +119,9 @@ def init_db():
     except Exception as e:
         print(f"An error occurred during database initialization: {e}")
 
+with app.app_context():
+    init_db()
+
 @app.route('/')
 def index():
     return "Flask app connected to MySQL using SQLAlchemy. Artifact model defined."
