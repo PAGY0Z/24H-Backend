@@ -4,8 +4,6 @@ from sqlalchemy import Enum as SQLEnum
 
 app = Flask(__name__)
 
-db = SQLAlchemy(app)
-
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'qwerteam_admin'
 app.config['MYSQL_PASSWORD'] = '5UH$r{=BTthTI71,2Ei9'
@@ -13,6 +11,8 @@ app.config['MYSQL_DB'] = 'qwerteam_main_database'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://qwerteam_admin:5UH$r{=BTthTI71,2Ei9@localhost/qwerteam_main_database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 class ArtifactType(SQLEnum):
     Video = 0
