@@ -6,8 +6,11 @@ from enum import Enum
 import os
 from werkzeug.utils import secure_filename
 import time
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
@@ -293,17 +296,6 @@ def get_random_positive_artifact():
 def get_random_negative_artifact():
     artifacts = Artifact.query.filter(Artifact.isNegative == True).order_by(db.func.random()).limit(4).all()
     return jsonify([artifact.to_dict() for artifact in artifacts])
-
-@app.route('/download/<int:artifact_id>', methods=['GET'])
-def download_artifact(artifact_id):
-    artifact = Artifact.query.get(artifact_id)
-    if artifact is None:
-        abort(404, description="Artifact not found")
-
-    if not artifact.filepath:
-        abort(404, description="File not found")
-
-    return send_from_directory(app.config['UPLOAD_FOLDER'], os.path.basename(artifact.filepath), as_attachment=True)
 
 @app.route('/artifacts/randoms/<string:author>', methods=['GET'])
 def get_random_artifact_by_author(author):
