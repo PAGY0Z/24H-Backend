@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = "/public_html/medias/"
 
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav', 'txt', 'pdf'}
 
