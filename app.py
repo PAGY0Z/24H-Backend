@@ -79,22 +79,16 @@ class ArtifactType(Enum):
 
 class Artifact(db.Model):
     __tablename__ = 'artifacts'
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
     votecount = db.Column(db.Integer, default=0, nullable=False)
-
     author = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
-
     isNegative = db.Column(db.Boolean, default=False, nullable=False)
     isPositive = db.Column(db.Boolean, default=False, nullable=False)
     emoji = db.Column(db.String(255), nullable=True)
-
     artyfactType = db.Column(SQLAlchemyEnum(ArtifactType), nullable=False)
     filepath = db.Column(db.String(255), nullable=True)
-
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -105,18 +99,14 @@ class Artifact(db.Model):
         return {
             'id': self.id,
             'votecount': self.votecount,
-
             'author': self.author,
             'title': self.title,
             'description': self.description,
-
             'isNegative': self.isNegative,
             'isPositive': self.isPositive,
             'emoji': self.emoji,
-
             'artyfactType': self.artyfactType.name,
             'filepath': self.filepath,
-
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
